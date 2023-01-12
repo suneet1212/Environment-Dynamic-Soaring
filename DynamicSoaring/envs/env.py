@@ -292,14 +292,15 @@ class Environment(gym.Env):
             if looping of index completed then return true\n
         '''
         # stop  it after n steps
-        # x = self.state_space_to_state()
+        x = self.state_space_to_state()
         # if(x[0] >= self.state_high[0] or x[0] <= self.state_low[0]):
         #     return True
         # if(x[1] >= self.state_high[1] or x[1] <= self.state_low[1]):
         #     return True
-        if(self.state[2] > self.state_high[2]*1.1 or self.state[2] < self.state_low[2]):
+        if(x[2] < 0.5):
+        # if(self.state[2] < self.state_low[2]):
             # print("crash after ", self.episodeLength, " steps, with height = ", self.state[2])
-            print("Z is lower than required")
+            print("Crashing")
             return True
         # if(x[3] >= self.state_high[3] or x[3] <= self.state_low[3]):
         #     return True

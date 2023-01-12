@@ -88,13 +88,13 @@ y1 = mat['y_tmarch']
 z1 = mat['z_tmarch']
 # for i in range(len(x)):
 #     print(x[i], y[i], z[i])
-ax.plot3D(x1, y1, z1, label="matlab")
+# ax.plot3D(x1, y1, z1, label="matlab")
 ax.plot3D(x, y, z, label="python")
 plt.legend()
 plt.show()
 
-state_dict = {'states': states_matrix}
-savemat("states.mat", state_dict)
+# state_dict = {'states': states_matrix}
+# savemat("states.mat", state_dict)
 
-delta_dict = {'delta_change': delta_change}
-savemat("delta_change.mat", delta_dict)
+# delta_dict = {'delta_change': delta_change}
+# savemat("delta_change.mat", delta_dict)
