@@ -49,13 +49,13 @@ class Agent(PPO):
         eval_env: Optional[GymEnv] = None,
         eval_freq: int = -1,
         n_eval_episodes: int = 5,
-        tb_log_name: str = "./runs/PPO_env_rectified1",
+        tb_log_name: str = "./runs/trial",
         eval_log_path: Optional[str] = None,
         reset_num_timesteps: bool = True,
         save_intervals: int = 200000,
     ) -> AgentSelf:
         iteration = 0
-
+        i = 0
         total_timesteps, callback = self._setup_learn(
             total_timesteps, eval_env, callback, eval_freq, n_eval_episodes, eval_log_path, reset_num_timesteps, tb_log_name
         )
@@ -86,16 +86,16 @@ class Agent(PPO):
 
             self.train()
             #### Number of timesteps at the end of train may not be an exact multiple of save_intervals
-            if self.num_timesteps%save_intervals == 0:
-                i = self.num_timesteps/save_intervals
-                savedir = "./models/ppo_env_rectified1/"
+            if int(self.num_timesteps/save_intervals) > i:
+                i = self.num_timesteps//save_intervals
+                savedir = "./models/trials/"
                 filename = str(i)
                 path = savedir+filename
                 self.save(path)
 
         callback.on_training_end()
-        i = self.num_timesteps/save_intervals
-        savedir = "./models/ppo_env_rectified1/"
+
+        savedir = "./models/trials/"
         filename = "final"
         path = savedir+filename
         self.save(path)
@@ -104,6 +104,8 @@ class Agent(PPO):
 
 agent = Agent()
 agent.learn_model(100000000, save_intervals=200000)
+# agent.learn_model(10000, save_intervals=3000)
+
 
 #x = []
 #y = []
