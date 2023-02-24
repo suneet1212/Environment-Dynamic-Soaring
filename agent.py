@@ -49,7 +49,7 @@ class Agent(PPO):
         eval_env: Optional[GymEnv] = None,
         eval_freq: int = -1,
         n_eval_episodes: int = 5,
-        tb_log_name: str = "./runs/trial",
+        tb_log_name: str = "./runs/ppo_rect_long_debug",
         eval_log_path: Optional[str] = None,
         reset_num_timesteps: bool = True,
         save_intervals: int = 200000,
@@ -88,14 +88,14 @@ class Agent(PPO):
             #### Number of timesteps at the end of train may not be an exact multiple of save_intervals
             if int(self.num_timesteps/save_intervals) > i:
                 i = self.num_timesteps//save_intervals
-                savedir = "./models/trials/"
+                savedir = "./models/ppo_rect_long_debug/"
                 filename = str(i)
                 path = savedir+filename
                 self.save(path)
 
         callback.on_training_end()
 
-        savedir = "./models/trials/"
+        savedir = "./models/ppo_rect_long_debug/"
         filename = "final"
         path = savedir+filename
         self.save(path)
@@ -103,8 +103,8 @@ class Agent(PPO):
 
 
 agent = Agent()
-agent.learn_model(100000000, save_intervals=200000)
-# agent.learn_model(10000, save_intervals=3000)
+# agent.learn_model(150000000, save_intervals=200000)
+agent.learn_model(10000, save_intervals=3000)
 
 
 #x = []

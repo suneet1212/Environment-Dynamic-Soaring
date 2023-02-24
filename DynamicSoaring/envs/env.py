@@ -322,26 +322,39 @@ class Environment(gym.Env):
             add extra negative reward if the actual height is lower than the minimum ht
         '''
         reward = 0
-        # get x,y,z,v,chi,gamma of pt on trajectory at time t
+
+        # get x,y,z,v,chi,gamma of pt on required trajectory at time t
         x = self.target_X[self.currInd][0]
         y = self.target_X[self.currInd][1]
         z = self.target_X[self.currInd][2]
         v = self.target_X[self.currInd][3]
         chi = self.target_X[self.currInd][4]
         gamma = self.target_X[self.currInd][5]
-        
-        state = self.state_space_to_state()
-        reward += (state[0] - x)**2
-        reward += (state[1] - y)**2
-        reward += (state[2] - z)**2
-        # reward -= (state[3] - v)**2
-        # reward -= (state[4] - chi)**2
-        # reward -= (state[5] - gamma)**2
+
+        # # The following code will convert the state to x,y,z and then find reward.
+
+        # state = self.state_space_to_state()
+        # reward += (state[0] - x)**2
+        # reward += (state[1] - y)**2
+        # reward += (state[2] - z)**2
+        # # reward -= (state[3] - v)**2
+        # # reward -= (state[4] - chi)**2
+        # # reward -= (state[5] - gamma)**2
+
+        # # convert the required state into the state space and find distance (normalised reward)
+        reqd_state = self.state_to_state_space(np.array([x,y,z,v,chi,gamma, self.wind.uw(z)]))
+        for i in range(6):
+            # add the squared distance between the state values except for wind
+            reward += (reqd_state[i]-self.state[i])**2
+
         reward = -np.sqrt(reward)
-        if(state[2] <= self.actual_low[2]):
+        if(self.state[2] <= self.state_low[2]):
             reward -= 1000
         # return -np.sqrt(reward)
+        print(reward)
         return reward
+
+
     
     def step(self, action):
         '''
