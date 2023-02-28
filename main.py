@@ -20,7 +20,6 @@ models.append('final.zip')
 # print(models)
 
 
-# i = 0
 mat = loadmat('/home/suneet/Desktop/RL/project/Environment-Dynamic-Soaring/DynamicSoaring/envs/Pseudospectral_states_2.mat')
 target_X = mat['X']
 target_U = mat['U']  # [mu;CL;T]
@@ -28,6 +27,26 @@ target_tvec = mat['tvec']
 mu = target_U[:,0]
 cl = target_U[:,1]
 T = target_U[:,2]
+
+## plot the trajectory directly
+# state = env.reset()
+# actual_state = env.state_space_to_state()
+# print('actual')
+# print(target_X[0])
+fig = plt.figure()
+ax = fig.add_subplot(projection='3d')
+
+x1 = []
+y1 = []
+z1 = []
+for i in range(target_X.shape[0]):
+    x1.append(target_X[i][3])
+    y1.append(target_X[i][4])
+    z1.append(target_X[i][5])
+    # v.append(target_X[i][0])
+    # ppo_rewardIsDistance_fixedStartgamma.append(target_X[i][1])
+    # chi.append(target_X[i][2])
+ax.plot3D(x1, y1, z1, label='actual_trajectory')
 
 def plot_fig(a,b,i):
     fig = plt.figure()
@@ -86,13 +105,13 @@ def plot_fig(a,b,i):
 # plt.legend()
 # plt.show()
 
-plot_fig(6,0,1)
-plt.legend()
-plot_fig(11,5,2)
-plt.legend()
-plot_fig(16,10,3)
-plt.legend()
-plot_fig(21,15,4)
+# plot_fig(6,0,1)
+# plt.legend()
+# plot_fig(11,5,2)
+# plt.legend()
+# plot_fig(16,10,3)
+# plt.legend()
+# plot_fig(21,15,4)
 
 
 #   interpolate the actions and check how it is coming up:
@@ -117,47 +136,33 @@ y = []
 z = []
 done = False
 state = env.reset()
-# while not done:
-#     # action = model.predict(state)
-#     # print(action)
-#     # print(action[0])
-#     # print(action)
-#     actual = env.state_space_to_state()
-#     action = np.zeros(3)
-#     action[0] = env.cl_to_act_space(cl_fit[i])
-#     action[1] = mu_fit[i]/env.mu_scale
-#     action[2] = T_fit[i]/env.thrust_scale
-    
-#     state, reward, done, _ = env.step(action)
-#     # print(reward, done)
-#     # print(actual[0], actual[1], actual[2])
-#     x.append(actual[0])
-#     y.append(actual[1])
-#     z.append(actual[2])
 
-#     i+=1
-# print(i)
-# ax.plot3D(x, y, z, label='actual')
+i = 0
+
+while not done:
+    # action = model.predict(state)
+    # print(action)
+    # print(action[0])
+    # print(action)
+    actual = env.state_space_to_state()
+    action = np.zeros(3)
+    action[0] = env.cl_to_act_space(cl_fit[i])
+    action[1] = mu_fit[i]/env.mu_scale
+    action[2] = T_fit[i]/env.thrust_scale
+    
+    state, reward, done, _ = env.step(action)
+    # print(reward, done)
+    # print(actual[0], actual[1], actual[2])
+    x.append(actual[0])
+    y.append(actual[1])
+    z.append(actual[2])
+
+    i+=1
+print(i)
+ax.plot3D(x, y, z, label='actual')
 # v = []
 # gamma = []
 # chi = []
-
-## plot the trajectory directly
-# state = env.reset()
-# actual_state = env.state_space_to_state()
-# print('actual')
-# print(target_X[0])
-# x1 = []
-# y1 = []
-# z1 = []
-# for i in range(target_X.shape[0]):
-#     x1.append(target_X[i][3])
-#     y1.append(target_X[i][4])
-#     z1.append(target_X[i][5])
-#     # v.append(target_X[i][0])
-#     # ppo_rewardIsDistance_fixedStartgamma.append(target_X[i][1])
-#     # chi.append(target_X[i][2])
-# ax.plot3D(x1, y1, z1, label='actual')
 
 plt.legend()
 plt.show()
