@@ -19,8 +19,8 @@ models = sorted(models, key=lambda x: int(os.path.splitext(x)[0]))
 models.append('final.zip')
 # print(models)
 
-
-mat = loadmat('/home/suneet/Desktop/RL/project/Environment-Dynamic-Soaring/DynamicSoaring/envs/Pseudospectral_states_2.mat')
+curr_dir = os.getcwd()
+mat = loadmat(os.path.join(curr_dir, 'DynamicSoaring/envs/Pseudospectral_states_2.mat'))
 target_X = mat['X']
 target_U = mat['U']  # [mu;CL;T]
 target_tvec = mat['tvec']

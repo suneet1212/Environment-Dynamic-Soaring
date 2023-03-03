@@ -2,8 +2,10 @@ import numpy as np
 from matplotlib import pyplot as plt
 from scipy.io import loadmat
 from scipy.interpolate import interp1d
+import os
 
-mat = loadmat('/home/suneet/Desktop/RL/project/Environment-Dynamic-Soaring/DynamicSoaring/envs/time_march.mat')
+curr_dir = os.getcwd()
+mat = loadmat(os.path.join(curr_dir,'DynamicSoaring/envs/time_march.mat'))
 x = mat['x_tmarch']
 y = mat['y_tmarch']
 z = mat['z_tmarch']

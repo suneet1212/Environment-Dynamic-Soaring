@@ -3,8 +3,10 @@ from scipy.interpolate import interp1d
 import numpy as np
 from DynamicSoaring.envs.env import Environment
 from matplotlib import pyplot as plt
+import os
 
-mat = loadmat('/home/suneet/Desktop/RL/project/Environment-Dynamic-Soaring/DynamicSoaring/envs/Pseudospectral_states_2.mat')
+curr_dir = os.getcwd()
+mat = loadmat(os.path.join(curr_dir, 'DynamicSoaring/envs/Pseudospectral_states_2.mat'))
 target_X = mat['X']
 target_U = mat['U']  # [mu;CL;T]
 target_tvec = mat['tvec']

@@ -2,6 +2,7 @@ import gym
 from gym import spaces
 import numpy as np
 from scipy.io import loadmat
+import os
 
 class WindProfile():
     '''
@@ -84,7 +85,8 @@ class Environment(gym.Env):
         self.rho = 1.2256 # density of air
 
         mat = None
-        mat = loadmat('/home/suneet/Desktop/RL/project/Environment-Dynamic-Soaring/DynamicSoaring/envs/Pseudospectral_states_2.mat')
+        curr_dir = os.getcwd()
+        mat = loadmat(os.path.join(curr_dir, 'DynamicSoaring/envs/Pseudospectral_states_2.mat'))
         self.target_U = mat['U']
         self.target_VR = mat['VR']
         self.target_X = mat['X']
