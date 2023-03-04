@@ -10,6 +10,8 @@ from typing import TypeVar, Optional
 import time
 from stable_baselines3.common.utils import safe_mean
 AgentSelf = TypeVar("AgentSelf", bound="Agent")
+from datetime import datetime
+
 # from torch.utils.tensorboard import SummaryWriter
 # writer = SummaryWriter()
 
@@ -44,12 +46,13 @@ class Agent(PPO):
     def learn_model(
         self: AgentSelf,
         total_timesteps: int,
+	dirname: str,
         callback: MaybeCallback = None,
         log_interval: int = 1,
         eval_env: Optional[GymEnv] = None,
         eval_freq: int = -1,
         n_eval_episodes: int = 5,
-        tb_log_name: str = "./runs/ppo_rect_long_debug",
+        tb_log_name: str = "./runs/ppo_debug",
         eval_log_path: Optional[str] = None,
         reset_num_timesteps: bool = True,
         save_intervals: int = 200000,
@@ -88,23 +91,24 @@ class Agent(PPO):
             #### Number of timesteps at the end of train may not be an exact multiple of save_intervals
             if int(self.num_timesteps/save_intervals) > i:
                 i = self.num_timesteps//save_intervals
-                savedir = "./models/ppo_rect_long_debug/"
+                savedir = "./model/"+dirname
                 filename = str(i)
                 path = savedir+filename
                 self.save(path)
 
         callback.on_training_end()
 
-        savedir = "./models/ppo_rect_long_debug/"
+        savedir = "./models/"+dirname
         filename = "final"
         path = savedir+filename
         self.save(path)
         return self
 
-
+now = datetime.now()
+dt = now.strftime("%d%m%Y%H%M%S")
 agent = Agent()
-# agent.learn_model(150000000, save_intervals=200000)
-agent.learn_model(10000, save_intervals=3000)
+agent.learn_model(150000000,"ppo_shortened_20_"+dt ,save_intervals=200000)
+# agent.learn_model(10000, save_intervals=3000)
 
 
 #x = []
