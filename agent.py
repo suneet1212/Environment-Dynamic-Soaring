@@ -11,7 +11,7 @@ import time
 from stable_baselines3.common.utils import safe_mean
 AgentSelf = TypeVar("AgentSelf", bound="Agent")
 from datetime import datetime
-
+import os
 # from torch.utils.tensorboard import SummaryWriter
 # writer = SummaryWriter()
 
@@ -28,10 +28,13 @@ env = Environment()
 
 # del model # remove to demonstrate saving and loading
 class Agent(PPO):
-    def __init__(self):
+    def __init__(self, model_load:str = None):
         super().__init__("MlpPolicy", env, verbose=1, tensorboard_log="./runs")
         # self.model = PPO("MlpPolicy", env, verbose=1, tensorboard_log="./runs")
         self.steps = 0
+        if model_load:
+            self.set_parameters(model_load)
+    
     
     # def step_learn(self, total_timesteps, save_intervals = 200000):
     #     i = 0
@@ -106,7 +109,10 @@ class Agent(PPO):
 
 now = datetime.now()
 dt = now.strftime("%d%m%Y%H%M%S")
-agent = Agent()
+
+curr_dir = os.getcwd()
+model_name = "models/ppo_rect_long_debug/250"
+agent = Agent(model_load=os.path.join(curr_dir, model_name))
 agent.learn_model(150000000,"ppo_shortened_20_"+dt ,save_intervals=200000)
 # agent.learn_model(10000, save_intervals=3000)
 

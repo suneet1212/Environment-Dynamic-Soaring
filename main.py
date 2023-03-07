@@ -8,7 +8,7 @@ import os
 from scipy.interpolate import interp1d
 env = Environment()
 
-address = "models/ppo_rect_long/"
+address = "models/ppo_rect_long_debug/"
 curr_dir = os.getcwd()
 path = os.path.join(curr_dir, address)
 models = os.listdir(path)
@@ -105,14 +105,34 @@ def plot_fig(a,b,i):
 # plt.legend()
 # plt.show()
 
-# plot_fig(6,0,1)
+# plot_fig(26,20,1)
 # plt.legend()
-# plot_fig(11,5,2)
+# plot_fig(31,25,2)
 # plt.legend()
-# plot_fig(16,10,3)
+# plot_fig(36,30,3)
 # plt.legend()
-# plot_fig(21,15,4)
+# plot_fig(41,35,4)
 
+# Play out one model:
+state = env.reset()
+x = []
+y = []
+z = []
+i = 0
+done = False
+model = PPO.load(os.path.join(curr_dir, path, '250.zip'))
+while not done:
+    action = model.predict(state)
+    # print(action[0])
+    # print(action)
+    actual = env.state_space_to_state()
+    state, reward, done, _ = env.step(action[0])
+    # print(reward, done)
+    x.append(actual[0])
+    y.append(actual[1])
+    z.append(actual[2])
+    i+=1
+ax.plot3D(x, y, z, label="250.zip")
 
 #   interpolate the actions and check how it is coming up:
 target_t = target_tvec.reshape(-1)
@@ -131,35 +151,35 @@ mu_fit = f_mu(time_step)
 cl_fit = f_cl(time_step)
 T_fit = f_T(time_step)
 
-x = []
-y = []
-z = []
-done = False
-state = env.reset()
+# x = []
+# y = []
+# z = []
+# done = False
+# state = env.reset()
 
-i = 0
+# i = 0
 
-while not done:
-    # action = model.predict(state)
-    # print(action)
-    # print(action[0])
-    # print(action)
-    actual = env.state_space_to_state()
-    action = np.zeros(3)
-    action[0] = env.cl_to_act_space(cl_fit[i])
-    action[1] = mu_fit[i]/env.mu_scale
-    action[2] = T_fit[i]/env.thrust_scale
+# while not done:
+#     # action = model.predict(state)
+#     # print(action)
+#     # print(action[0])
+#     # print(action)
+#     actual = env.state_space_to_state()
+#     action = np.zeros(3)
+#     action[0] = env.cl_to_act_space(cl_fit[i])
+#     action[1] = mu_fit[i]/env.mu_scale
+#     action[2] = T_fit[i]/env.thrust_scale
     
-    state, reward, done, _ = env.step(action)
-    # print(reward, done)
-    # print(actual[0], actual[1], actual[2])
-    x.append(actual[0])
-    y.append(actual[1])
-    z.append(actual[2])
+#     state, reward, done, _ = env.step(action)
+#     # print(reward, done)
+#     # print(actual[0], actual[1], actual[2])
+#     x.append(actual[0])
+#     y.append(actual[1])
+#     z.append(actual[2])
 
-    i+=1
-print(i)
-ax.plot3D(x, y, z, label='actual')
+#     i+=1
+# print(i)
+# ax.plot3D(x, y, z, label='actual')
 # v = []
 # gamma = []
 # chi = []
