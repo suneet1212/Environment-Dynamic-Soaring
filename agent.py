@@ -107,7 +107,7 @@ class Agent(PPO):
 now = datetime.now()
 dt = now.strftime("%d%m%Y%H%M%S")
 agent = Agent()
-agent.learn_model(150000000,"ppo_shortened_20_"+dt ,save_intervals=200000)
+agent.learn_model(150000000,"ppo_shortened_40_"+dt ,save_intervals=200000)
 # agent.learn_model(10000, save_intervals=3000)
 
 
