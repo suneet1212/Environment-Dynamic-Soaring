@@ -8,7 +8,7 @@ import os
 from scipy.interpolate import interp1d
 env = Environment()
 
-address = "models/ppo_rect_long_debug/"
+address = "models/ppo_shortened_30/"
 curr_dir = os.getcwd()
 path = os.path.join(curr_dir, address)
 models = os.listdir(path)
@@ -105,13 +105,13 @@ def plot_fig(a,b,i):
 # plt.legend()
 # plt.show()
 
-# plot_fig(26,20,1)
-# plt.legend()
-# plot_fig(31,25,2)
-# plt.legend()
-# plot_fig(36,30,3)
-# plt.legend()
-# plot_fig(41,35,4)
+plot_fig(6,0,1)
+plt.legend()
+plot_fig(11,5,2)
+plt.legend()
+plot_fig(16,10,3)
+plt.legend()
+plot_fig(21,15,4)
 
 # Play out one model:
 state = env.reset()

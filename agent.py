@@ -49,7 +49,7 @@ class Agent(PPO):
     def learn_model(
         self: AgentSelf,
         total_timesteps: int,
-	dirname: str,
+	    dirname: str,
         callback: MaybeCallback = None,
         log_interval: int = 1,
         eval_env: Optional[GymEnv] = None,
@@ -96,7 +96,7 @@ class Agent(PPO):
                 i = self.num_timesteps//save_intervals
                 savedir = "./models/"+dirname
                 filename = str(i)
-                path = savedir+filename
+                path = os.path.join(savedir, filename)
                 self.save(path)
 
         callback.on_training_end()
@@ -113,7 +113,7 @@ dt = now.strftime("%d%m%Y%H%M%S")
 curr_dir = os.getcwd()
 model_name = "models/ppo_rect_long_debug/250"
 agent = Agent(model_load=os.path.join(curr_dir, model_name))
-agent.learn_model(50000000,"ppo_shortened_40_" + dt + "_" ,save_intervals=200000)
+agent.learn_model(50000000,"ppo_shortened_40_" + dt, save_intervals=200000)
 # agent.learn_model(10000, save_intervals=3000)
 
 
