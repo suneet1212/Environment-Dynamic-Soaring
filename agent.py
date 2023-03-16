@@ -62,9 +62,11 @@ class Agent(PPO):
     ) -> AgentSelf:
         iteration = 0
         i = 0
+        tb_log_name = os.getcwd("./runs/", dirname)
         total_timesteps, callback = self._setup_learn(
             total_timesteps, eval_env, callback, eval_freq, n_eval_episodes, eval_log_path, reset_num_timesteps, tb_log_name
         )
+
         curr_dir = os.getcwd()
         savedir = os.path.join(curr_dir, "models", dirname)
 
