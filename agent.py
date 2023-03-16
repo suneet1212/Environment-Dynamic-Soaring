@@ -65,6 +65,8 @@ class Agent(PPO):
         total_timesteps, callback = self._setup_learn(
             total_timesteps, eval_env, callback, eval_freq, n_eval_episodes, eval_log_path, reset_num_timesteps, tb_log_name
         )
+        curr_dir = os.getcwd()
+        savedir = os.path.join(curr_dir, "models", dirname)
 
         callback.on_training_start(locals(), globals())
 
@@ -94,14 +96,12 @@ class Agent(PPO):
             #### Number of timesteps at the end of train may not be an exact multiple of save_intervals
             if int(self.num_timesteps/save_intervals) > i:
                 i = self.num_timesteps//save_intervals
-                savedir = "./models/"+dirname
                 filename = str(i)
                 path = os.path.join(savedir, filename)
                 self.save(path)
 
         callback.on_training_end()
 
-        savedir = "./models/"+dirname
         filename = "final"
         path = savedir+filename
         self.save(path)
