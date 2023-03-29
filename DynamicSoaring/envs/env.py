@@ -299,7 +299,7 @@ class Environment(gym.Env):
         #     return True
         # if(x[1] >= self.state_high[1] or x[1] <= self.state_low[1]):
         #     return True
-        if(x[2] < 0.5):
+        if(x[2] < 0.3):
         # if(self.state[2] < self.state_low[2]):
             # print("crash after ", self.episodeLength, " steps, with height = ", self.state[2])
             print("Crashing")
@@ -320,7 +320,7 @@ class Environment(gym.Env):
         #         return True
 
         # Instead check for fraction of loops
-        if float(self.currInd)/self.end_ind >= 0.35:
+        if float(self.currInd)/self.end_ind >= 0.40:
             return True
         return False
 
@@ -356,10 +356,11 @@ class Environment(gym.Env):
             reward += (reqd_state[i]-self.state[i])**2
 
         reward = -np.sqrt(reward)
-        if(self.state[2] <= self.state_low[2]):
+        actual_state = self.state_space_to_state()
+        if(actual_state[2] <= 0.3):
             reward -= 1000
         # return -np.sqrt(reward)
-        print(reward)
+        # print(reward)
         return reward
 
 
