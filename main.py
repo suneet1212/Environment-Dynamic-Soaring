@@ -8,7 +8,7 @@ import os
 from scipy.interpolate import interp1d
 env = Environment()
 
-address = "models/ppo_shortened_40_18032023105434"
+address = "models/ppo_shortened_40_29032023170610"
 curr_dir = os.getcwd()
 path = os.path.join(curr_dir, address)
 models = os.listdir(path)
@@ -186,7 +186,30 @@ plt.legend()
 # v = []
 # gamma = []
 # chi = []
-
+#             best20 = []
+#             for addr in models:
+#                 model = PPO.load(os.path.join(curr_dir, path, addr))
+#                 str_list = addr.split('.')
+#                 state = env.reset()
+#                 done = False
+#                 x = []
+#                 y = []
+#                 z = []
+#                 i = 0
+#                 tot_reward = 0
+#                 while not done:
+#                     action = model.predict(state)
+#                     # print(action[0])
+#                     # print(action)
+#                     actual = env.state_space_to_state()
+#                     state, reward, done, _ = env.step(action[0])
+#                     # print(reward, done)
+#                     x.append(actual[0])
+#                     y.append(actual[1])
+#                     z.append(actual[2])
+#                     i+=1
+#                     tot_reward += reward
+#                 best20.append([tot_reward, addr])
 plot_fig(6,0,1)
 plt.legend()
 plot_fig(11,5,2)
@@ -195,6 +218,59 @@ plot_fig(16,10,3)
 plt.legend()
 plot_fig(21,15,4)
 plt.legend()
+plot_fig(26,20,4)
+plt.legend()
+plot_fig(31,25,4)
+plt.legend()
+plot_fig(36,30,4)
+plt.legend()
+plot_fig(41,35,4)
+plt.legend()
+
+# best20.sort(reverse=True)
+# def best(a,b):
+#     fig = plt.figure()
+#     ax = fig.add_subplot(projection='3d')
+#     ax.set_xlabel("X")
+#     ax.set_ylabel("Y")
+#     ax.set_zlabel("Z")
+#     ax.plot3D(x1, y1, z1, label='actual_trajectory')
+#     tp = best20[a:b][1]
+#     for entry in best20[a:b]:
+#         addr = entry[1]
+#         model = PPO.load(os.path.join(curr_dir, path, addr))
+#         str_list = addr.split('.')
+#         state = env.reset()
+#         done = False
+#         x = []
+#         y = []
+#         z = []
+#         i = 0
+#         tot_reward = 0
+#         while not done:
+#             action = model.predict(state)
+#             # print(action[0])
+#             # print(action)
+#             actual = env.state_space_to_state()
+#             state, reward, done, _ = env.step(action[0])
+#             # print(reward, done)
+#             x.append(actual[0])
+#             y.append(actual[1])
+#             z.append(actual[2])
+#             i+=1
+#             tot_reward += reward
+#         # print(i)
+#         # global ax
+#         ax.plot3D(x, y, z, label=str_list[0])
+#         print(addr, " ", tot_reward)
+# best(0,6)
+# plt.legend()
+# best(5,11)
+# plt.legend()
+# best(10,16)
+# plt.legend()
+# best(15,21)
+# plt.legend()
 plt.show()
 
 # model1 = PPO.load("./models/ppo_new/124.zip")
