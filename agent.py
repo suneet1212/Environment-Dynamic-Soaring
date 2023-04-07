@@ -115,7 +115,7 @@ dt = now.strftime("%d%m%Y%H%M%S")
 curr_dir = os.getcwd()
 model_name = "models/ppo_shortened_40_29032023170610/175"
 agent = Agent(model_load=os.path.join(curr_dir, model_name))
-agent.learn_model(50000000,"ppo_shortened_40_" + dt, save_intervals=200000)
+agent.learn_model(50000000,"ppo_shortened_50_" + dt, save_intervals=200000)
 # agent.learn_model(10000, save_intervals=3000)
 
 
