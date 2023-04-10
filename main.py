@@ -8,7 +8,7 @@ import os
 from scipy.interpolate import interp1d
 env = Environment()
 
-address = "models/ppo_shortened_40_29032023170610"
+address = "models/ppo_shortened_50_05042023172610"
 curr_dir = os.getcwd()
 path = os.path.join(curr_dir, address)
 models = os.listdir(path)
@@ -46,6 +46,8 @@ for i in range(target_X.shape[0]):
     # chi.append(target_X[i][2])
 
 def plot_fig(a,b,i):
+    # a += 40
+    # b += 40
     fig = plt.figure()
     ax = fig.add_subplot(projection='3d')
     ax.set_xlabel("X")
@@ -115,7 +117,7 @@ y = []
 z = []
 i = 0
 done = False
-model = PPO.load(os.path.join(curr_dir, path, '250.zip'))
+model = PPO.load(os.path.join(curr_dir, path, 'final.zip'))
 total_reward = 0
 while not done:
     action = model.predict(state)
@@ -129,7 +131,7 @@ while not done:
     z.append(actual[2])
     i+=1
     total_reward += reward
-
+print("final: ", total_reward)
 
 #   interpolate the actions and check how it is coming up:
 target_t = target_tvec.reshape(-1)
@@ -179,7 +181,7 @@ while not done:
 print("actual action", tot_reward)
 fig = plt.figure()
 ax = fig.add_subplot(projection='3d')
-ax.plot3D(x, y, z, label="250.zip")
+ax.plot3D(x, y, z, label="final.zip")
 ax.plot3D(x1, y1, z1, label='actual_trajectory')
 ax.plot3D(x2, y2, z2, label='take_actual_action')
 plt.legend()
