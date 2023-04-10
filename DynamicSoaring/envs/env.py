@@ -320,7 +320,7 @@ class Environment(gym.Env):
         #         return True
 
         # Instead check for fraction of loops
-        if float(self.currInd)/self.end_ind >= 0.50:
+        if float(self.currInd)/self.end_ind >= 0.60:
             return True
         return False
 
