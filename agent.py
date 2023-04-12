@@ -110,7 +110,7 @@ class Agent(PPO):
         return self
 
 now = datetime.now()
-dt = now.strftime("%d%m%Y%H%M%S")
+dt = now.strftime("%Y%m%d%H%M%S")   
 
 curr_dir = os.getcwd()
 model_name = "models/ppo_shortened_40_29032023170610/final"
