@@ -8,7 +8,7 @@ import os
 from scipy.interpolate import interp1d
 env = Environment()
 
-address = "models/ppo_shortened_60_11042023003206"
+address = "models/ppo_shortened_30"
 curr_dir = os.getcwd()
 path = os.path.join(curr_dir, address)
 models = os.listdir(path)
@@ -46,8 +46,8 @@ for i in range(target_X.shape[0]):
     # chi.append(target_X[i][2])
 
 def plot_fig(a,b,i):
-    # a += 40
-    # b += 40
+    a += 210
+    b += 210
     fig = plt.figure()
     ax = fig.add_subplot(projection='3d')
     ax.set_xlabel("X")
