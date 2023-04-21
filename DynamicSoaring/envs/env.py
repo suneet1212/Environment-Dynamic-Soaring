@@ -357,7 +357,7 @@ class Environment(gym.Env):
 
         reward = -np.sqrt(reward)
         actual_state = self.state_space_to_state()
-        if(actual_state[2] <= 0.3):
+        if(actual_state[2] <= 0.4):
             reward -= 10000
         # return -np.sqrt(reward)
         # print(reward)
