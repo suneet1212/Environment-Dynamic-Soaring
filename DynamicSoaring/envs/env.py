@@ -312,16 +312,16 @@ class Environment(gym.Env):
         #     return True
         
         # # to check for 2 whole loops
-        # if(self.currInd == self.end_ind):
-        #     # print(self.episodeLength)
-        #     self.overlaps += 1
-        #     if(self.overlaps == 2):
-        #         print("Length of trajectory is max")
-        #         return True
+        if(self.currInd == self.end_ind):
+            # print(self.episodeLength)
+            self.overlaps += 1
+            if(self.overlaps == 2):
+                # print("Length of trajectory is max")
+                return True
 
         # Instead check for fraction of loops
-        if float(self.currInd)/self.end_ind >= 0.40:
-            return True
+        # if float(self.currInd)/self.end_ind >= 0.40:
+        #     return True
         return False
 
     def getReward(self):
