@@ -332,38 +332,38 @@ class Environment(gym.Env):
         reward = 0
 
         ## Energy Reward
-        d_disp_sq = self.delta_change[0]**2
-        d_disp_sq += self.delta_change[1]**2
-        d_disp_sq += self.delta_change[2]**2
-        delta_disp = np.sqrt(d_disp_sq)
+        # d_disp_sq = self.delta_change[0]**2
+        # d_disp_sq += self.delta_change[1]**2
+        # d_disp_sq += self.delta_change[2]**2
+        # delta_disp = np.sqrt(d_disp_sq)
 
-        reward -= self.act_values[2]*delta_disp*1000 # check this factor
+        # reward -= self.act_values[2]*delta_disp*1000 # check this factor
 
-        # # get x,y,z,v,chi,gamma of pt on required trajectory at time t
-        # x = self.target_X[self.currInd][0]
-        # y = self.target_X[self.currInd][1]
-        # z = self.target_X[self.currInd][2]
-        # v = self.target_X[self.currInd][3]
-        # chi = self.target_X[self.currInd][4]
-        # gamma = self.target_X[self.currInd][5]
+        # get x,y,z,v,chi,gamma of pt on required trajectory at time t
+        x = self.target_X[self.currInd][0]
+        y = self.target_X[self.currInd][1]
+        z = self.target_X[self.currInd][2]
+        v = self.target_X[self.currInd][3]
+        chi = self.target_X[self.currInd][4]
+        gamma = self.target_X[self.currInd][5]
 
-        # # # The following code will convert the state to x,y,z and then find reward.
+        # # The following code will convert the state to x,y,z and then find reward.
 
-        # # state = self.state_space_to_state()
-        # # reward += (state[0] - x)**2
-        # # reward += (state[1] - y)**2
-        # # reward += (state[2] - z)**2
-        # # # reward -= (state[3] - v)**2
-        # # # reward -= (state[4] - chi)**2
-        # # # reward -= (state[5] - gamma)**2
+        # state = self.state_space_to_state()
+        # reward += (state[0] - x)**2
+        # reward += (state[1] - y)**2
+        # reward += (state[2] - z)**2
+        # # reward -= (state[3] - v)**2
+        # # reward -= (state[4] - chi)**2
+        # # reward -= (state[5] - gamma)**2
 
-        # # # convert the required state into the state space and find distance (normalised reward)
-        # reqd_state = self.state_to_state_space(np.array([x,y,z,v,chi,gamma, self.wind.uw(z)]))
-        # for i in range(6):
-        #     # add the squared distance between the state values except for wind
-        #     reward += (reqd_state[i]-self.state[i])**2
+        # # convert the required state into the state space and find distance (normalised reward)
+        reqd_state = self.state_to_state_space(np.array([x,y,z,v,chi,gamma, self.wind.uw(z)]))
+        for i in range(6):
+            # add the squared distance between the state values except for wind
+            reward += (reqd_state[i]-self.state[i])**2
 
-        # reward = -np.sqrt(reward)
+        reward = -np.sqrt(reward)
 
         actual_state = self.state_space_to_state()
         if(actual_state[2] <= 0.4):

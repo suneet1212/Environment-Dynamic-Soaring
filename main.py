@@ -8,7 +8,8 @@ import os
 from scipy.interpolate import interp1d
 env = Environment()
 
-address = "models/ppo_shortened_40_20230427210652"
+
+address = "models/ppo_shortened_60_02042023122445"
 curr_dir = os.getcwd()
 path = os.path.join(curr_dir, address)
 models = os.listdir(path)
@@ -117,7 +118,7 @@ y = []
 z = []
 i = 0
 done = False
-model = PPO.load(os.path.join(curr_dir, path, 'final.zip'))
+model = PPO.load(os.path.join(curr_dir, path, '1.zip'))
 total_reward = 0
 while not done:
     action = model.predict(state)
@@ -212,22 +213,22 @@ plt.legend()
 #                     i+=1
 #                     tot_reward += reward
 #                 best20.append([tot_reward, addr])
-plot_fig(6,0,1)
-plt.legend()
-plot_fig(11,5,2)
-plt.legend()
-plot_fig(16,10,3)
-plt.legend()
-plot_fig(21,15,4)
-plt.legend()
-plot_fig(26,20,4)
-plt.legend()
-plot_fig(31,25,4)
-plt.legend()
-plot_fig(36,30,4)
-plt.legend()
-plot_fig(41,35,4)
-plt.legend()
+# plot_fig(6,0,1)
+# plt.legend()
+# plot_fig(11,5,2)
+# plt.legend()
+# plot_fig(16,10,3)
+# plt.legend()
+# plot_fig(21,15,4)
+# plt.legend()
+# plot_fig(26,20,4)
+# plt.legend()
+# plot_fig(31,25,4)
+# plt.legend()
+# plot_fig(36,30,4)
+# plt.legend()
+# plot_fig(41,35,4)
+# plt.legend()
 
 # best20.sort(reverse=True)
 # def best(a,b):
