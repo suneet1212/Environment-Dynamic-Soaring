@@ -332,12 +332,12 @@ class Environment(gym.Env):
         reward = 0
 
         ## Energy Reward
-        # d_disp_sq = self.delta_change[0]**2
-        # d_disp_sq += self.delta_change[1]**2
-        # d_disp_sq += self.delta_change[2]**2
-        # delta_disp = np.sqrt(d_disp_sq)
+        d_disp_sq = self.delta_change[0]**2
+        d_disp_sq += self.delta_change[1]**2
+        d_disp_sq += self.delta_change[2]**2
+        delta_disp = np.sqrt(d_disp_sq)
 
-        # reward -= self.act_values[2]*delta_disp*1000 # check this factor
+        reward -= self.act_values[2]*delta_disp*1000 # check this factor
 
         # get x,y,z,v,chi,gamma of pt on required trajectory at time t
         x = self.target_X[self.currInd][0]
