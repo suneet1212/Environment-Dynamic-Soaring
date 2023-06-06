@@ -9,15 +9,15 @@ from scipy.interpolate import interp1d
 env = Environment()
 
 
-address = "models/ppo_shortened_60_02042023122445"
+address = "models/ppo_new_reward_20230508151722"
 curr_dir = os.getcwd()
 path = os.path.join(curr_dir, address)
 models = os.listdir(path)
 # print(models)
 
-models.remove('final.zip')
-models = sorted(models, key=lambda x: int(os.path.splitext(x)[0]))
-models.append('final.zip')
+# models.remove('final.zip')
+# models = sorted(models, key=lambda x: int(os.path.splitext(x)[0]))
+# models.append('final.zip')
 # print(models)
 
 curr_dir = os.getcwd()
@@ -118,7 +118,7 @@ y = []
 z = []
 i = 0
 done = False
-model = PPO.load(os.path.join(curr_dir, path, '1.zip'))
+model = PPO.load(os.path.join(curr_dir, path, '40.zip'))
 total_reward = 0
 while not done:
     action = model.predict(state)
@@ -178,13 +178,15 @@ while not done:
     z2.append(actual[2])
     tot_reward += reward
     i+=1
+    if i == len(cl_fit):
+        break
 
 print("actual action", tot_reward)
 fig = plt.figure()
 ax = fig.add_subplot(projection='3d')
-ax.plot3D(x, y, z, label="final.zip")
-ax.plot3D(x1, y1, z1, label='actual_trajectory')
-ax.plot3D(x2, y2, z2, label='take_actual_action')
+ax.plot3D(x1, y1, z1, color='orange', label='expected trajectory')
+ax.plot3D(x, y, z, color='blue', label="trained model")
+# ax.plot3D(x2, y2, z2, label='take expected action')
 plt.legend()
 # v = []
 # gamma = []

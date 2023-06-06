@@ -154,7 +154,7 @@ class Environment(gym.Env):
         self.mu_scale = 75
         self.thrust_scale = 0.001
         # keep it from -1 to 1 wherever possible, use scaling factor to fill in rest.
-        self.action_space = spaces.Box(low=np.array([-1, -1, -1], dtype=np.float), high=np.array([1, 1, 1], dtype=np.float))
+        self.action_space = spaces.Box(low=np.array([-1, -1, -1], dtype=float), high=np.array([1, 1, 1], dtype=float))
 
 
         # self.max_ep_len = self.target_X.shape[0] #####
@@ -315,12 +315,12 @@ class Environment(gym.Env):
         if(self.currInd == self.end_ind):
             # print(self.episodeLength)
             self.overlaps += 1
-            if(self.overlaps == 2):
+            if(self.overlaps == 3):
                 # print("Length of trajectory is max")
                 return True
 
         # Instead check for fraction of loops
-        # if float(self.currInd)/self.end_ind >= 0.40:
+        # if float(self.currInd)/self.end_ind >= 0.60:
         #     return True
         return False
 
@@ -367,7 +367,7 @@ class Environment(gym.Env):
 
         actual_state = self.state_space_to_state()
         if(actual_state[2] <= 0.4):
-            reward -= 10000
+            reward -= 12000
         # return -np.sqrt(reward)
         # print(reward)
         return reward
